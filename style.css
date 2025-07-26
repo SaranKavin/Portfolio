@@ -252,6 +252,107 @@ section {
   line-height: 1.6;
 }
 
+.section-container {
+  width: 80%;
+  margin: auto;
+  padding: 60px 0;
+  text-align: center;
+}
+
+.section-container h2 {
+  font-size: 2rem;
+  color: rgb(109, 67, 0);
+  margin-bottom: 40px;
+  text-shadow: 0 0 5px rgb(109, 67, 0);
+}
+
+/* Projects */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.project-card {
+  background: #fff;
+  border: 2px solid rgb(109, 67, 0);
+  padding: 20px;
+  border-radius: 10px;
+  color: rgb(109, 67, 0);
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(109, 67, 0, 0.2);
+  transition: 0.3s;
+}
+
+.project-card:hover {
+  background-color: rgb(109, 67, 0);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Skills */
+.skills-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.skills-grid img {
+  width: 60px;
+  height: 60px;
+  transition: 0.3s ease-in-out;
+}
+
+.skills-grid img:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 10px rgb(109, 67, 0));
+}
+
+/* Education - Timeline */
+.timeline {
+  position: relative;
+  margin: 20px auto;
+  padding: 20px 0;
+  border-left: 4px solid rgb(109, 67, 0);
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -10px;
+  top: 5px;
+  width: 20px;
+  height: 20px;
+  background-color: rgb(109, 67, 0);
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 5px rgba(109, 67, 0, 0.6);
+}
+
+.timeline-content h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: rgb(109, 67, 0);
+}
+
+.timeline-content p {
+  margin: 5px 0;
+  font-weight: 500;
+}
+
+.timeline-content span {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+
 /* Responsive */
 @media (max-width: 884px) {
   nav .logo {

@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Amelia Portfolio</title>
   <link rel="stylesheet" href="style.css" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" />
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
+
 <body>
   <nav>
     <div class="nav-container">
@@ -19,11 +18,14 @@
       </div>
       <div class="links">
         <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100"><a href="#">Home</a></div>
-        <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200"><a href="#about">About</a></div>
+        <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200"><a href="#about">About</a>
+        </div>
         <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300"><a href="#">Skills</a></div>
-        <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400"><a href="#">Services</a></div>
+        <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400"><a href="#">Services</a>
+        </div>
         <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500"><a href="#">Blogs</a></div>
-        <div class="link contact-btn" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600"><a href="#">Contact Us</a></div>
+        <div class="link contact-btn" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600"><a
+            href="#">Contact Us</a></div>
       </div>
       <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
     </div>
@@ -31,9 +33,9 @@
       <div class="links">
         <a href="#">Home</a>
         <a href="#about">About</a>
-        <a href="#">Skills</a>
-        <a href="#">Services</a>
-        <a href="#">Blogs</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#education">Education</a>
         <a href="#">Contact Us</a>
         <i class="fa-solid fa-xmark cancel" onclick="cancel()"></i>
       </div>
@@ -47,9 +49,12 @@
       </div>
       <div class="content">
         <h1 data-aos="fade-left" data-aos-duration="1000" data-aos-delay="800">Hey I'm <span>Amelia</span></h1>
-        <h2 data-aos="fade-right" data-aos-duration="1000" data-aos-delay="900" class="subtitle">I'm a <span class="highlight">Developer</span></h2>
+        <h2 data-aos="fade-right" data-aos-duration="1000" data-aos-delay="900" class="subtitle">I'm a <span
+            class="highlight">Developer</span></h2>
         <p data-aos="flip-up" data-aos-duration="1000" data-aos-delay="1000">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, perferendis quas consectetur possimus maxime consequatur cupiditate eos dolorum molestias praesentium error exercitationem rem labore illo, in dolor, odio corporis excepturi?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, perferendis quas consectetur possimus maxime
+          consequatur cupiditate eos dolorum molestias praesentium error exercitationem rem labore illo, in dolor, odio
+          corporis excepturi?
         </p>
         <div class="social-links" data-aos="flip-down" data-aos-duration="1000" data-aos-delay="1200">
           <a href="#"><i class="fa-brands fa-github"></i></a>
@@ -68,9 +73,75 @@
   <section id="about">
     <div class="about-container" data-aos="fade-up" data-aos-duration="1500">
       <h2>About Me</h2>
-      <p>Hello! I'm Amelia, a passionate developer and designer who creates beautiful, functional, and user-friendly digital experiences. With strong skills in both front-end development and creative design, I strive to build websites that make an impact.</p>
+      <p>Hello! I'm Amelia, a passionate developer and designer who creates beautiful, functional, and user-friendly
+        digital experiences. With strong skills in both front-end development and creative design, I strive to build
+        websites that make an impact.</p>
     </div>
   </section>
+  <!-- Projects Section -->
+  <section id="projects">
+    <div class="section-container" data-aos="fade-up">
+      <h2>Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">Portfolio Website</div>
+        <div class="project-card">Weather App</div>
+        <div class="project-card">E-Commerce Store</div>
+        <div class="project-card">Chat App (Node.js)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <div class="section-container" data-aos="fade-up">
+      <h2>Skills</h2>
+      <div class="skills-grid">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+          alt="JavaScript">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL">
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section id="education">
+    <div class="section-container" data-aos="fade-up">
+      <h2>Education</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Bachelor's in Computer Science</h3>
+            <p>Sri Krishna Arts and Science College</p>
+            <span>2021 - 2024</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>HSC</h3>
+            <p>XYZ Higher Secondary School</p>
+            <span>2019 - 2021</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>SSLC</h3>
+            <p>ABC Matriculation School</p>
+            <span>2018 - 2019</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>
@@ -85,4 +156,5 @@
     }
   </script>
 </body>
+
 </html>
