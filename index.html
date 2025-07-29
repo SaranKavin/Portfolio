@@ -1,164 +1,846 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Amelia Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saran P - Full Stack Developer Portfolio</title>
+
+    <!-- CDNs -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom Styles & Tailwind Config -->
+    <style>
+        :root {
+            --primary: #00d2ff;
+            --secondary: #3a7bd5;
+            --accent: #00ffaa;
+            --background: #0a0a0a;
+        }
+
+        body {
+            background-color: var(--background);
+            color: white;
+            font-family: 'Fira Code', monospace;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glassmorphic {
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .neon-glow {
+            box-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent), 0 0 20px var(--accent);
+        }
+
+        .neon-border {
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+        }
+
+        .custom-cursor {
+            position: fixed;
+            left: 0;
+            top: 0;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        #cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            transition: transform 0.2s ease-out;
+        }
+
+        #cursor-ring {
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: absolute;
+            top: -11px;
+            left: -11px;
+            mix-blend-mode: screen;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        .hamburger-line {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .menu-open .line-1 {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-open .line-2 {
+            opacity: 0;
+        }
+
+        .menu-open .line-3 {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+    </style>
 </head>
 
-<body>
-  <nav>
-    <div class="nav-container">
-      <div class="logo" data-aos="zoom-in" data-aos-duration="1000">
-        <span>Amelia</span>
-      </div>
-      <div class="links">
-        <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100"><a href="#">Home</a></div>
-        <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200"><a href="#about">About</a>
+<body class="antialiased">
+
+    <!-- 3D Matrix Background -->
+    <div id="matrix-bg" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
+
+    <!-- Custom Cursor -->
+    <!-- <div class="custom-cursor" id="cursor">
+        <div id="cursor-dot"></div>
+        <div id="cursor-ring"></div>
+    </div> -->
+
+    <!-- Navigation Bar -->
+    <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 glassmorphic">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-3xl font-bold gradient-text">Saran P</a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#home" class="nav-link text-white hover:text-cyan-400 relative">Home <span
+                        class="underline-anim"></span></a>
+                <a href="#about" class="nav-link text-white hover:text-cyan-400 relative">About <span
+                        class="underline-anim"></span></a>
+                <a href="#skills" class="nav-link text-white hover:text-cyan-400 relative">Skills <span
+                        class="underline-anim"></span></a>
+                <a href="#projects" class="nav-link text-white hover:text-cyan-400 relative">Projects <span
+                        class="underline-anim"></span></a>
+                <a href="#experience" class="nav-link text-white hover:text-cyan-400 relative">Education <span
+                        class="underline-anim"></span></a>
+                <a href="#contact" class="nav-link text-white hover:text-cyan-400 relative">Contact <span
+                        class="underline-anim"></span></a>
+            </div>
+            <button id="hamburger-btn" class="md:hidden z-50">
+                <div class="w-8 h-8 flex flex-col justify-around">
+                    <span class="hamburger-line line-1 block w-full h-0.5 bg-white"></span>
+                    <span class="hamburger-line line-2 block w-full h-0.5 bg-white"></span>
+                    <span class="hamburger-line line-3 block w-full h-0.5 bg-white"></span>
+                </div>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu"
+        class="fixed top-0 left-0 w-full h-full glassmorphic z-40 transform -translate-x-full transition-transform duration-500 ease-in-out">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="#home" class="mobile-nav-link text-3xl text-white">Home</a>
+            <a href="#about" class="mobile-nav-link text-3xl text-white">About</a>
+            <a href="#skills" class="mobile-nav-link text-3xl text-white">Skills</a>
+            <a href="#projects" class="mobile-nav-link text-3xl text-white">Projects</a>
+            <a href="#experience" class="mobile-nav-link text-3xl text-white">Education</a>
+            <a href="#contact" class="mobile-nav-link text-3xl text-white">Contact</a>
         </div>
-        <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300"><a href="#">Projects</a>
-        </div>
-        <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400"><a href="#">Skills</a>
-        </div>
-        <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500"><a href="#">Education</a>
-        </div>
-        <div class="link contact-btn" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600"><a
-            href="#">Contact Us</a></div>
-      </div>
-      <i class="fa-solid fa-bars hamburg" onclick="hamburg()"></i>
     </div>
-    <div class="dropdown">
-      <div class="links">
-        <a href="#">Home</a>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#education">Education</a>
-        <a href="#">Contact Us</a>
-        <i class="fa-solid fa-xmark cancel" onclick="cancel()"></i>
-      </div>
-    </div>
-  </nav>
 
-  <section>
-    <div class="main-container">
-      <div class="image" data-aos="zoom-in-right" data-aos-duration="2500">
-        <img src="main.png" alt="Main Image" />
-        <!-- <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.37/build/spline-viewer.js"></script>
-        <spline-viewer url="https://prod.spline.design/f4RleINSKaQ9ZEsb/scene.splinecode"></spline-viewer> -->
-      </div>
-      <div class="content">
-        <h1 data-aos="fade-left" data-aos-duration="1000" data-aos-delay="800">Hey I'm <span>Amelia</span></h1>
-        <h2 data-aos="fade-right" data-aos-duration="1000" data-aos-delay="900" class="subtitle">I'm a <span
-            class="highlight">Developer</span></h2>
-        <p data-aos="flip-up" data-aos-duration="1000" data-aos-delay="1000">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, perferendis quas consectetur possimus maxime
-          consequatur cupiditate eos dolorum molestias praesentium error exercitationem rem labore illo, in dolor, odio
-          corporis excepturi?
-        </p>
-        <div class="social-links" data-aos="flip-down" data-aos-duration="1000" data-aos-delay="1200">
-          <a href="#"><i class="fa-brands fa-github"></i></a>
-          <a href="#"><i class="fa-brands fa-facebook"></i></a>
-          <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-          <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="h-screen flex items-center justify-center relative overflow-hidden">
+            <div
+                class="hero-content text-center glassmorphic p-8 md:p-12 rounded-lg border border-cyan-500/20 max-w-4xl mx-auto">
+                <div class="terminal-box text-left font-mono text-sm md:text-lg">
+                    <p class="type-text">> Hello_World()</p>
+                    <h1 class="text-4xl md:text-6xl font-bold my-4">I'm <span class="gradient-text">Saran P</span>, a
+                        Full Stack Developer</h1>
+                    <p class="type-text">const specialties = ["SQL", "Java", "React", "Node.js"]</p>
+                </div>
+                <div class="mt-8 flex justify-center gap-4">
+                    <a href="#projects"
+                        class="btn outline-btn px-6 py-3 rounded-md text-lg font-semibold border-2 border-accent text-accent hover:bg-accent hover:text-black transition-all">View
+                        Projects</a>
+                    <!-- <a href="#projects"
+                        class="btn gradient-btn px-6 py-3 rounded-md text-lg font-semibold bg-gradient-to-r from-cyan-500 to-blue-500 hover:opacity-90 transition-opacity">Download
+                        Resume</a> -->
+                    <!-- Dropdown Wrapper -->
+                    <div class="relative group z-10">
+                        <!-- Main Button -->
+                        <button
+                            class="btn gradient-btn px-6 py-3 rounded-md text-lg font-semibold bg-gradient-to-r from-cyan-500 to-blue-500 hover:opacity-90 transition-opacity">
+                            Resume
+                        </button>
+
+                        <!-- Dropdown -->
+                        <div
+                            class="absolute top-full left-0 mt-1 w-40 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                            <a href="SARAN P.pdf" target="_blank"
+                                class="block px-4 py-2 text-gray-800 hover:bg-gray-200 border-b border-gray-300">
+                                View Resume
+                            </a>
+                            <a href="SARAN P.pdf" download class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
+                                Download Resume
+                            </a>
+                        </div>
+                    </div>
+                    <a href="#contact"
+                        class="btn outline-btn px-6 py-3 rounded-md text-lg font-semibold border-2 border-accent text-accent hover:bg-accent hover:text-black transition-all">Contact
+                        Me</a>
+
+                </div>
+            </div>
+            <!-- <div class="absolute bottom-10 left-1/2 -translate-x-1/2">
+                <div
+                    class="scroll-down-indicator w-6 h-10 border-2 border-white rounded-full flex justify-center items-start p-1">
+                    <div class="scroll-dot w-2 h-2 bg-white rounded-full"></div>
+                </div>
+            </div> -->
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 gradient-text section-title">About Me</h2>
+                <div class="grid md:grid-cols-2 gap-12 items-center about-content">
+                    <div class="profile-image-container relative w-64 h-64 mx-auto md:w-80 md:h-80">
+                        <img src="https://t3.ftcdn.net/jpg/06/01/17/18/360_F_601171867_X85WpWCcMzNsoMWtMxiZQspKzaOwCyuK.jpg"
+                            alt="Profile" class="rounded-full w-full h-full object-cover z-10 relative">
+                        <div class="absolute inset-0 border-4 border-cyan-400 rounded-full animate-pulse"></div>
+                        <div
+                            class="absolute inset-[-10px] border-2 border-blue-500 rounded-full animate-pulse delay-500">
+                        </div>
+                    </div>
+                    <div class="about-text text-center md:text-left">
+                        <p class="text-lg mb-4">
+                            A highly motivated person with self learning ability and Socially adaptable. Possess
+                            Master’s
+                            degree in M.Sc Information Technology. My objective is co Secure a responsible career
+                            opportunity
+                            to fully utilize my skills and abilities in IT industry, while making significant
+                            contribution to the
+                            success of your company.
+
+                            <!-- A passionate Full Stack Developer with 5+ years of experience crafting immersive digital experiences. My expertise lies in building dynamic, responsive, and user-friendly web applications from the ground up. -->
+                        </p>
+                        <!-- <p class="text-lg mb-6">
+                            I thrive at the intersection of creative design and Developing technology, with a special
+                            focus on <span class="text-cyan-400">JS</span>, 
+                            <span class="text-blue-500">Three.js</span>,
+                                 and the <span class="text-accent">MERN</span>
+                            stack.
+                        </p> -->
+
+                        <div class="flex justify-center md:justify-start space-x-6 text-2xl">
+                            <a href="mailto:saranponnusamy03@gmail.com"
+                                class="social-icon hover:text-red-400 transition-colors">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a href="https://github.com/SaranKavin"
+                                class="social-icon hover:text-cyan-400 transition-colors"><i
+                                    class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/saran-p-092311287/"
+                                class="social-icon hover:text-cyan-400 transition-colors"><i
+                                    class="fab fa-linkedin"></i></a>
+                            <a href="https://www.hackerrank.com/profile/saranponnusamy03"
+                                class="social-icon hover:text-green-400 transition-colors">
+                                <i class="fab fa-hackerrank"></i>
+                            </a>
+
+                            <!-- <a href="#" class="social-icon hover:text-cyan-400 transition-colors"><i
+                                    class="fab fa-twitter"></i></a> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 bg-black/20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 gradient-text section-title">Skills</h2>
+                <div class="skills-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Skills will be injected here by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 bg-black/20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 gradient-text section-title">Projects</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project Cards -->
+                    <div class="project-card glassmorphic rounded-lg overflow-hidden">
+                        <div class="relative group">
+                            <img src="/img/nursery.png" alt="Project 1" class="w-full h-48 object-cover">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-r from-cyan-500/50 to-blue-500/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-2">Nursery Management System</h3>
+                            <p class="text-gray-400 mb-4">Project One</p>
+                            <div class="flex gap-2 mb-4">
+                                <span class="tag">HTML</span><span class="tag">CSS</span><span
+                                    class="tag">JavaScript</span><span class="tag">PHP</span><span
+                                    class="tag">SQL</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <!-- <a href="#" class="btn-link">Live Demo <i class="fas fa-external-link-alt"></i></a> -->
+                                <a href="https://github.com/SaranKavin/Nursery-Management-System" class="btn-link">Code
+                                    <i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card glassmorphic rounded-lg overflow-hidden">
+                        <div class="relative group">
+                            <img src="./img/project 2.webp" alt="Project 2" class="w-full h-48 object-cover">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-r from-cyan-500/50 to-blue-500/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-2">Heart Disease Prediction-System</h3>
+                            <p class="text-gray-400 mb-4">Project Two</p>
+                            <div class="flex gap-2 mb-4">
+                                <span class="tag">Python</span><span class="tag">HTML</span><span class="tag">CSS</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <!-- <a href="#" class="btn-link">Live Demo <i class="fas fa-external-link-alt"></i></a> -->
+                                <a href="https://github.com/SaranKavin/Heart-Disease-Prediction-System"
+                                    class="btn-link">Code <i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card glassmorphic rounded-lg overflow-hidden">
+                        <div class="relative group">
+                            <img src="./img/Cafe-Magement" alt="Project 3" class="w-full h-48 object-cover">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-r from-cyan-500/50 to-blue-500/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-2">Cafe-Magement</h3>
+                            <p class="text-gray-400 mb-4">Project Three</p>
+                            <div class="flex gap-2 mb-4">
+                                <span class="tag">HTML</span><span class="tag">CSS</span><span
+                                    class="tag">Bootstrap</span><span class="tag">JavaScript</span><span
+                                    class="tag">PHP</span><span class="tag">SQL</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <!-- <a href="#" class="btn-link">Live Demo <i class="fas fa-external-link-alt"></i></a> -->
+                                <a href="https://github.com/SaranKavin/Cafe-Magement" class="btn-link">Code <i
+                                        class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16 gradient-text section-title">Education</h2>
+                <div class="relative">
+                    <div
+                        class="absolute left-1/2 -translate-x-1/2 h-full w-1 bg-gradient-to-b from-cyan-500 to-blue-500">
+                    </div>
+                    <div class="space-y-12">
+                        <!-- Experience Items -->
+                        <div class="experience-item flex md:justify-end">
+                            <div class="md:w-5/12">
+                                <div class="p-6 glassmorphic rounded-lg">
+                                    <p class="text-accent font-semibold">2024 - 2026</p>
+                                    <h3 class="text-2xl font-bold">M.Sc Information Technology</h3>
+                                    <p class="text-sm my-2 text-gray-400">Pursuing</p>
+                                    <p class="text-gray-300">Sri Krishna Arts and Science College</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="experience-item flex md:justify-start">
+                            <div class="md:w-5/12">
+                                <div class="p-6 glassmorphic rounded-lg">
+                                    <p class="text-accent font-semibold">2024 - 2026</p>
+                                    <h3 class="text-2xl font-bold">B.Sc Computer Science</h3>
+                                    <p class="text-sm my-2 text-gray-400">74%</p>
+                                    <p class="text-gray-300">Sri Ramakrishna Mission Vidyalaya Collage Arts and Science
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="experience-item flex md:justify-end">
+                            <div class="md:w-5/12">
+                                <div class="p-6 glassmorphic rounded-lg">
+                                    <p class="text-accent font-semibold">2019 - 2021</p>
+                                    <h3 class="text-2xl font-bold">HSC</h3>
+                                    <p class="text-sm my-2 text-gray-400">80%</p>
+                                    <p class="text-gray-300">Kearitman Matriculation Higher Secondary School</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="experience-item flex md:justify-start">
+                            <div class="md:w-5/12">
+                                <div class="p-6 glassmorphic rounded-lg">
+                                    <p class="text-accent font-semibold">2018 - 2019</p>
+                                    <h3 class="text-2xl font-bold">SSLC</h3>
+                                    <p class="text-sm my-2 text-gray-400">74%</p>
+                                    <p class="text-gray-300">Jaycee Higher Secondary School</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 gradient-text section-title">Get In Touch</h2>
+                <div class="grid md:grid-cols-2 gap-12 contact-content">
+                    <div>
+                        <h3 class="text-3xl font-bold mb-4">Contact Info</h3>
+                        <p class="text-lg mb-8">Have a project in mind or just want to say hi? Feel free to reach out.
+                            I'm always open to discussing new projects and creative ideas.</p>
+                        <div class="space-y-4">
+                            <p><i class="fas fa-envelope mr-3 text-cyan-400"></i> saranponnusamy03@gmail.com</p>
+                            <p><i class="fas fa-map-marker-alt mr-3 text-cyan-400"></i> Coimbatore, Tamil Nadu</p>
+                        </div>
+                    </div>
+                    <!-- <form class="space-y-6">
+                        <input type="text" placeholder="Name"
+                            class="contact-input w-full bg-black/20 p-4 rounded-md border border-gray-700 focus:border-cyan-400 focus:ring-cyan-400 focus:outline-none transition-all">
+                        <input type="email" placeholder="Email"
+                            class="contact-input w-full bg-black/20 p-4 rounded-md border border-gray-700 focus:border-cyan-400 focus:ring-cyan-400 focus:outline-none transition-all">
+                        <input type="text" placeholder="Subject"
+                            class="contact-input w-full bg-black/20 p-4 rounded-md border border-gray-700 focus:border-cyan-400 focus:ring-cyan-400 focus:outline-none transition-all">
+                        <textarea placeholder="Message" rows="5"
+                            class="contact-input w-full bg-black/20 p-4 rounded-md border border-gray-700 focus:border-cyan-400 focus:ring-cyan-400 focus:outline-none transition-all"></textarea>
+                        <button type="submit"
+                            class="magnetic-btn w-full px-6 py-3 rounded-md text-lg font-semibold bg-gradient-to-r from-cyan-500 to-blue-500 hover:opacity-90 transition-opacity">Send
+                            Message</button>
+                    </form> -->
+                    <form id="contactForm" action="https://formsubmit.co/saranponnusamy03@gmail.com" method="POST"
+                        class="space-y-6">
+                        <!-- Disable Captcha -->
+                        <input type="hidden" name="_captcha" value="false">
+
+                        <!-- Disable redirect -->
+                        <input type="hidden" name="_next" value="">
+
+                        <input type="text" name="name" placeholder="Name" required
+                            class="contact-input w-full bg-black/20 p-4 rounded-md border border-gray-700 focus:border-cyan-400 focus:ring-cyan-400 focus:outline-none transition-all">
+
+                        <input type="email" name="email" placeholder="Email" required
+                            class="contact-input w-full bg-black/20 p-4 rounded-md border border-gray-700 focus:border-cyan-400 focus:ring-cyan-400 focus:outline-none transition-all">
+
+                        <input type="text" name="subject" placeholder="Subject" required
+                            class="contact-input w-full bg-black/20 p-4 rounded-md border border-gray-700 focus:border-cyan-400 focus:ring-cyan-400 focus:outline-none transition-all">
+
+                        <textarea name="message" placeholder="Message" rows="5" required
+                            class="contact-input w-full bg-black/20 p-4 rounded-md border border-gray-700 focus:border-cyan-400 focus:ring-cyan-400 focus:outline-none transition-all"></textarea>
+
+                        <button type="submit"
+                            class="magnetic-btn w-full px-6 py-3 rounded-md text-lg font-semibold bg-gradient-to-r from-cyan-500 to-blue-500 hover:opacity-90 transition-opacity">
+                            Send Message
+                        </button>
+
+                        <p id="successMessage" class="text-green-400 font-medium hidden">Message sent successfully!</p>
+                    </form>
+
+
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-8 bg-black/30 border-t border-gray-800">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <a href="#home" class="text-2xl font-bold gradient-text mb-4 inline-block">Saran P</a>
+            <div class="flex justify-center space-x-6 text-xl mb-4">
+                <a href="https://github.com/SaranKavin" class="social-icon hover:text-cyan-400 transition-colors"><i
+                        class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/saran-p-092311287/"
+                    class="social-icon hover:text-cyan-400 transition-colors"><i class="fab fa-linkedin"></i></a>
+                <!-- <a href="#" class="social-icon hover:text-cyan-400 transition-colors"><i class="fab fa-twitter"></i></a> -->
+            </div>
+            <p>© 2025 Saran . All rights reserved.</p>
         </div>
-        <div class="btn" data-aos="zoom-out-left" data-aos-duration="1000" data-aos-delay="1300">
-          <button>Download CV</button>
-        </div>
-      </div>
-    </div>
-  </section>
+    </footer>
 
-  <!-- About Section -->
-  <section id="about">
-    <div class="about-container" data-aos="fade-up" data-aos-duration="1500">
-      <h2>About Me</h2>
-      <p>Hello! I'm Amelia, a passionate developer and designer who creates beautiful, functional, and user-friendly
-        digital experiences. With strong skills in both front-end development and creative design, I strive to build
-        websites that make an impact.</p>
-    </div>
-  </section>
-  <!-- Projects Section -->
-  <section id="projects">
-    <div class="section-container" data-aos="fade-up">
-      <h2>Projects</h2>
-      <div class="projects-grid">
-        <div class="project-card">Portfolio Website</div>
-        <div class="project-card">Weather App</div>
-        <div class="project-card">E-Commerce Store</div>
-        <div class="project-card">Chat App (Node.js)</div>
-      </div>
-    </div>
-  </section>
+    <script>
+        // Prevent redirect and show message
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // stop default behavior
 
-  <!-- Skills Section -->
-  <section id="skills">
-    <div class="section-container" data-aos="fade-up">
-      <h2>Skills</h2>
-      <div class="skills-grid">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
-          alt="JavaScript">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL">
-      </div>
-    </div>
-  </section>
+            const form = e.target;
+            const formData = new FormData(form);
 
-  <!-- Education Section -->
-  <section id="education">
-    <div class="section-container" data-aos="fade-up">
-      <h2>Education</h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h3>Bachelor's in Computer Science</h3>
-            <p>Sri Krishna Arts and Science College</p>
-            <span>2021 - 2024</span>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h3>HSC</h3>
-            <p>XYZ Higher Secondary School</p>
-            <span>2019 - 2021</span>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h3>SSLC</h3>
-            <p>ABC Matriculation School</p>
-            <span>2018 - 2019</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    form.reset();
+                    document.getElementById('successMessage').classList.remove('hidden');
+                } else {
+                    alert('There was a problem submitting the form.');
+                }
+            }).catch(error => {
+                alert('Failed to send message.');
+            });
+        });
+    </script>
+    <!-- JavaScript -->
+    <script type="module">
+
+        import * as THREE from 'three';
+
+        // --- Three.js 3D Matrix Background ---
+        let scene, camera, renderer, particles;
+        const container = document.getElementById('matrix-bg');
+
+        function initMatrix() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 300;
+
+            renderer = new THREE.WebGLRenderer({ alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            const particleCount = 5000;
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+            const color = new THREE.Color();
+
+            for (let i = 0; i < particleCount; i++) {
+                const i3 = i * 3;
+                positions[i3] = (Math.random() - 0.5) * 1000;
+                positions[i3 + 1] = (Math.random() - 0.5) * 1000;
+                positions[i3 + 2] = (Math.random() - 0.5) * 1000;
+
+                color.setHSL(0.5 + Math.random() * 0.2, 0.7, 0.5);
+                colors[i3] = color.r;
+                colors[i3 + 1] = color.g;
+                colors[i3 + 2] = color.b;
+            }
+
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 1.5,
+                vertexColors: true,
+                blending: THREE.AdditiveBlending,
+                transparent: true,
+                opacity: 0.7,
+            });
+
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+
+            window.addEventListener('resize', onWindowResize);
+            document.addEventListener('mousemove', onMouseMove);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        let mouseX = 0, mouseY = 0;
+        function onMouseMove(event) {
+            mouseX = (event.clientX - window.innerWidth / 2) / 100;
+            mouseY = (event.clientY - window.innerHeight / 2) / 100;
+        }
+
+        function animateMatrix() {
+            requestAnimationFrame(animateMatrix);
+
+            const time = Date.now() * 0.0001;
+            particles.rotation.y = time * 0.2;
+
+            camera.position.x += (mouseX - camera.position.x) * 0.05;
+            camera.position.y += (-mouseY - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        initMatrix();
+        animateMatrix();
 
 
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
-    AOS.init({ offset: 0 });
+        // --- GSAP Animations ---
+        gsap.registerPlugin(ScrollTrigger);
 
-    function hamburg() {
-      document.querySelector(".dropdown").style.transform = "translateY(0px)";
-    }
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorRing = document.getElementById('cursor-ring');
 
-    function cancel() {
-      document.querySelector(".dropdown").style.transform = "translateY(-500px)";
-    }
-  </script>
+        gsap.set(cursor, { xPercent: -50, yPercent: -50 });
+        gsap.set(cursorRing, { xPercent: -50, yPercent: -50 });
+
+        window.addEventListener('mousemove', e => {
+            gsap.to(cursorDot, 0.2, { x: e.clientX, y: e.clientY });
+            gsap.to(cursorRing, 0.8, { x: e.clientX, y: e.clientY, ease: "power2.out" });
+        });
+
+
+        // Hero Section Animation
+        gsap.from(".hero-content", { duration: 1.5, y: 50, opacity: 0, ease: "power3.out", delay: 0.5 });
+        gsap.from(".type-text", { duration: 1, text: "", ease: "none", stagger: 1, delay: 1 });
+        gsap.from(".scroll-down-indicator", { y: -20, repeat: -1, yoyo: true, duration: 1, ease: "power1.inOut" });
+
+        // Section Title Animations
+        gsap.utils.toArray('.section-title').forEach(title => {
+            gsap.from(title, {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: title,
+                    start: 'top 80%',
+                }
+            });
+        });
+
+        // About Section
+        gsap.from(".about-content", {
+            opacity: 0,
+            y: 100,
+            duration: 1,
+            scrollTrigger: {
+                trigger: "#about",
+                start: "top 70%"
+            }
+        });
+
+        // Skills
+        const skillsData = [
+            // { icon: 'fab fa-js', name: 'JavaScript', level: 95 },
+            // { icon: 'fab fa-react', name: 'React', level: 90 },
+            // { icon: 'fab fa-node-js', name: 'Node.js', level: 85 },
+            // { icon: 'fas fa-database', name: 'Databases', level: 80 },
+            // { icon: 'fas fa-cube', name: 'Three.js', level: 90 },
+            // { icon: 'fab fa-html5', name: 'HTML5', level: 98 },
+            // { icon: 'fab fa-css3-alt', name: 'CSS3', level: 95 },
+            // { icon: 'fab fa-aws', name: 'Cloud', level: 75 },
+
+            { icon: 'fab fa-html5', name: 'HTML', level: 98 },
+            { icon: 'fab fa-css3-alt', name: 'CSS', level: 95 },
+            // { icon: 'fab fa-bootstrap', name: 'Bootstrap', level: 90 },
+            { icon: 'fab fa-js', name: 'JavaScript', level: 95 },
+            { icon: 'fas fa-code', name: 'jQuery', level: 85 },
+            // { icon: 'fab fa-react', name: 'React', level: 90 },
+            { icon: 'fab fa-node-js', name: 'Node.js', level: 85 },
+            { icon: 'fas fa-database', name: 'MySQL', level: 85 },
+            { icon: 'fab fa-java', name: 'Java', level: 80 },
+            { icon: 'fab fa-git-alt', name: 'Git / GitHub', level: 88 },
+            // { icon: 'fas fa-file-word', name: 'MS Office', level: 75 },
+            // { icon: 'fas fa-microchip', name: 'Arduino', level: 70 }
+
+        ];
+
+        const skillsGrid = document.querySelector('.skills-grid');
+        skillsData.forEach(skill => {
+            const skillEl = document.createElement('div');
+            skillEl.className = 'skill-card glassmorphic p-6 rounded-lg text-center';
+            skillEl.innerHTML = `
+                <i class="${skill.icon} text-5xl text-cyan-400 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">${skill.name}</h3>
+                <div class="w-full bg-gray-700 rounded-full h-2.5">
+                    <div class="bg-gradient-to-r from-cyan-400 to-blue-500 h-2.5 rounded-full progress-bar" style="width: 0%"></div>
+                </div>
+            `;
+            skillsGrid.appendChild(skillEl);
+        });
+
+        gsap.utils.toArray('.skill-card').forEach((card, i) => {
+            gsap.from(card, {
+                opacity: 0,
+                scale: 0.5,
+                duration: 0.5,
+                stagger: 0.1,
+                scrollTrigger: {
+                    trigger: ".skills-grid",
+                    start: "top 80%",
+                }
+            });
+        });
+
+        gsap.utils.toArray('.progress-bar').forEach(bar => {
+            gsap.to(bar, {
+                width: "100%",
+                duration: 2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: bar,
+                    start: "top 90%"
+                }
+            });
+        });
+
+
+        // Experience Timeline
+        gsap.utils.toArray('.experience-item').forEach((item, index) => {
+            gsap.from(item, {
+                opacity: 0,
+                x: index % 2 === 0 ? -100 : 100,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 80%",
+                }
+            });
+        });
+
+        // Projects
+        gsap.from(".project-card", {
+            opacity: 0,
+            y: 100,
+            scale: 0.8,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+                trigger: "#projects",
+                start: "top 70%"
+            }
+        });
+
+        // Contact Form
+        gsap.from(".contact-content", {
+            opacity: 0,
+            y: 100,
+            duration: 1,
+            scrollTrigger: {
+                trigger: "#contact",
+                start: "top 70%"
+            }
+        });
+
+        // Magnetic Button
+        const magneticBtn = document.querySelector('.magnetic-btn');
+        if (magneticBtn) {
+            magneticBtn.addEventListener('mousemove', function (e) {
+                const pos = this.getBoundingClientRect();
+                const x = e.clientX - pos.left - pos.width / 2;
+                const y = e.clientY - pos.top - pos.height / 2;
+
+                gsap.to(this, {
+                    x: x * 0.3,
+                    y: y * 0.6,
+                    duration: 0.7,
+                    ease: "power3.out"
+                });
+            });
+
+            magneticBtn.addEventListener('mouseleave', function (e) {
+                gsap.to(this, {
+                    x: 0,
+                    y: 0,
+                    duration: 0.7,
+                    ease: "elastic.out(1, 0.3)"
+                });
+            });
+        }
+
+        // Mobile Menu
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        const menuTimeline = gsap.timeline({ paused: true });
+        menuTimeline.to(mobileMenu, {
+            x: 0,
+            duration: 0.5,
+            ease: "power3.inOut"
+        });
+
+        hamburgerBtn.addEventListener('click', () => {
+            hamburgerBtn.classList.toggle('menu-open');
+            if (hamburgerBtn.classList.contains('menu-open')) {
+                menuTimeline.play();
+            } else {
+                menuTimeline.reverse();
+            }
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburgerBtn.classList.remove('menu-open');
+                menuTimeline.reverse();
+            });
+        });
+
+        // Additional styles for project cards
+        const styleSheet = document.createElement("style");
+        styleSheet.type = "text/css";
+        styleSheet.innerText = `
+            .tag { background-color: rgba(0, 210, 255, 0.1); color: var(--primary); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; }
+            .btn-link { color: var(--accent); font-weight: 500; transition: all 0.2s; }
+            .btn-link:hover { text-shadow: 0 0 5px var(--accent); }
+            .nav-link .underline-anim { position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px; background-color: var(--accent); transform: scaleX(0); transition: transform 0.3s ease-in-out; transform-origin: right; }
+            .nav-link:hover .underline-anim { transform: scaleX(1); transform-origin: left; }
+        `;
+        document.head.appendChild(styleSheet);
+
+    </script>
 </body>
 
 </html>
